@@ -1,0 +1,69 @@
+<?php $__env->startSection('admin_content'); ?>
+    <section id="dashboard-ecommerce">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h4 class="card-title">
+                            <div class="d-flex justify-content-between">
+                                <div>Payment method Lists</div>
+                                <div><a href="<?php echo e(route('admin.method.create')); ?>" class="btn btn-primary btn-sm"> <i class="bx bx-plus"></i> Add New Item </a> </div>
+                            </div>
+                        </h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body card-dashboard">
+                            <div class="table-responsive">
+                                <table class="table table-striped dataex-html5-selectors">
+                                    <thead>
+                                    <tr>
+                                        <th>S.N</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Status</th>
+                                        <th>Active</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php $__currentLoopData = $methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <tr>
+                                            <td><?php echo e($key + 1); ?></td>
+                                            <td>
+                                                <img src="<?php echo e(asset($row->photo)); ?>" style="width: 30px;height: 30px;border-radius: 50px;" alt="">
+                                            </td>
+                                            <td><?php echo e($row->name); ?></td>
+                                            <td><?php echo e($row->address); ?></td>
+                                            <td><?php echo e($row->status); ?></td>
+                                            <td>
+                                                <a href="<?php echo e(route('admin.method.create', $row->id)); ?>"
+                                                   class="btn btn-warning" style="padding: 3px 7px;font-size: 20px" data-toggle="tooltip" title='Edit'>
+                                                    <i class="bx bx-pencil"></i></a>
+                                                <form method="POST" action="<?php echo e(route('admin.method.delete', $row->id)); ?>"
+                                                      class="d-inline"><?php echo csrf_field(); ?>
+                                                    <?php echo e(method_field('DELETE')); ?>
+
+                                                    <button type="submit"
+                                                            style="padding: 3px 7px;"
+                                                            class="btn btn-icon btn-danger delete_confirm<?php echo e($row->id); ?>"
+                                                            data-toggle="tooltip" title='Delete'>
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                    <?php echo $__env->make('admin.partials.delete-confirmation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('admin.partials.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /home/demoyes1/g1.yesuntech.xyz/resources/views/admin/pages/method/index.blade.php ENDPATH**/ ?>
